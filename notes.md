@@ -72,10 +72,31 @@
 
 ### 3.4 Networking & Routing
 
+- VPC: Private network for your resources (e.g., EC2 + RDS inside private subnets)
+- Route 53: Domain registration and DNS routing (e.g., `api.example.com` -> API Gateway)
+- Elastic Load Balancer: Distribute traffic to multiple EC2 instances or containers
+
 ### 3.5 Security
+
+- IAM: Manage who/what can access resources (e.g., Lambda role to access S3)
+- IAM Identity Center (SSO): Centralized login across AWS org/accounts
+- Secrets manager: Store secrets securely (e.g., DB passwords for Lambda)
+- Security Hub: Centralized security posture and threat detection
 
 ### 3.6 Monitoring & Logging
 
+- CloudWatch: Logs, metrics, alarms (e.g., Lambda log output, CPU usage alerts)
+- CloudTrail: Audit logs of all API activity (e.g. track "who deleted that bucket")
+- X-Ray: Trace requests across services (e.g., identify slow DynamoDB queries)
+
 ### 3.7 DevOps and IaC (Infrastructure as Code)
 
-### 3.8 Data Integration & ETL
+- CloudFormation: Define infra in YAML/JSON templates (e.g., deploy full stack with networking)
+- CDK: Code-first CloudFormation using TypeScript/Python (e.g., programmatic deployment of Lambda + API + DynamoDB)
+- CodePipeline / CodeBuild: CI/CD pipelines (e.g., auto-deploy from GitHub to Lambda/EC2)
+
+### 3.8 Data Integration & ETL (Extract, Transform, Load)
+
+- Glue: ETL service for cleaning and transforming data at scale (e.g., convert CSVs in S3 to Parquet for Athena)
+- Athena: Query S3 with SQL (e.g., analytics dashboard over log files)
+- Kinesis: Real-time data streams (e.g., live analytics from user actions)
