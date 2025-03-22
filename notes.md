@@ -26,3 +26,24 @@
 
 - Serverless NoSQL DB with ultra-low latency
 - Greate for key-value or document use cases
+
+6. API Gateway
+
+- Define and expose REST/HTTP APIs
+- Works great with Lambda for serverless APIs
+
+7. CloudFront
+
+- CDN to distribute your frontend, media, or API globally with low latency
+
+8. Route 53
+
+- DNS Service, domain registration, routing policies
+
+## Dev Essentials
+
+- IAM (Identity & Access Management): Secure resources. Create roles, policies, and least privilige access
+- VPC (Virtual Private Cloud): Network layering. Define subnets, firewalls (security groups), routing
+- CloudWatch: Logging, metrics, and alarms. Monitor performance and errors
+- Secrets manager / Parameter store: Securely store credentials, tokens, config
+- CodePipeline + CodeBuild + CodedDeploy: CI/CD tools for automating deployment
