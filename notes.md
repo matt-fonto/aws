@@ -203,3 +203,47 @@ Check `exampleUsages.ts`
 - InvokeLambda
 - Write log to CloudWatch
 - Query RDS (via Data API)
+
+## 7. Setup Typescript CDK
+
+Example with:
+
+- S3 (frontend hosting)
+- Lambda (API)
+- API Gateway (routes)
+- DynamoDB (data)
+
+1. Init CDK Project
+
+```bash
+mkdir my-app && cd my-app
+cdk init app --language=typescript # cdk is, btw, written in TS
+npm install @aws-cdk/aws-s3 @aws-cdk/aws-lambda @aws-cdk/aws-apigateway \
+            @aws-cdk/aws-dynamodb @aws-cdk/aws-iam
+```
+
+2. Edit `lib/my-app-stack.ts`
+
+```ts
+import * as cdk from "aws-cdk-lib";
+import { Construct } from "constructs";
+import * as s3 from "aws-cdk-lib/aws-s3";
+import * as lambda from "aws-cdk-lib/aws-lambda";
+import * as apigateway from "aws-cdk-lib/aws-apigateway";
+import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
+
+export class MyAppStack extends cdk.Stack {
+  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+    super(scope, id, props);
+
+    // S3 (static frontend)
+    const siteBucket = new s3.Bucket(this, "SiteBucket", {
+      websiteIndexDocument: "index.html",
+      publicReadAccess: true,
+    });
+
+    // DynamoDB table
+    const table = new dynamodb.Table();
+  }
+}
+```
