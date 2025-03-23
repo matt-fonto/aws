@@ -162,3 +162,44 @@ Infrastructure as Code using programming languages (TS, Python, YAML, etc)
 ```ts
 new s3.Bucket(this, "MyBucket", { versioned: True });
 ```
+
+## 6. Setup TypeScript SDK
+
+1. Install SDK Packages
+
+```bash
+npm install @aws-sdk/client-s3 \
+             @aws-sdk/client-dynamodb \
+             @aws-sdk/client-lambda \
+             @aws-sdk/client-cloudwatch-logs \
+             @aws-sdk/client-rds-data
+```
+
+2. AWS SDK Client setup
+
+```ts
+// awsClient.ts
+import { S3Client } from "@aws-sdk/client-s3";
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+import { LambdaClient } from "@aws-sdk/client-lambda";
+import { CloudWatchLogsClient } from "@aws-sdk/client-cloudwatch-logs";
+import { RDSDataClient } from "@aws-sdk/client-rds-data";
+
+const REGION = "eu-central-1";
+
+export const s3 = new S3Client({ region: REGION });
+export const dynamo = new DynamoDBClient({ region: REGION });
+export const lambda = new LambdaClient({ region: REGION });
+export const logs = new CloudWatchLogsClient({ region: REGION });
+export const rds = new RDSDataClient({ region: REGION });
+```
+
+3. Example usages
+
+Check `exampleUsages.ts`
+
+- Upload file to S3
+- Write to DynamoDB
+- InvokeLambda
+- Write log to CloudWatch
+- Query RDS (via Data API)
