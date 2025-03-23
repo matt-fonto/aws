@@ -43,6 +43,8 @@
 
 - DNS Service, domain registration, routing policies
 
+![Example simple application](image.png)
+
 ## 2. Dev Essentials
 
 - IAM (Identity & Access Management): Secure resources. Create roles, policies, and least privilige access
@@ -50,6 +52,11 @@
 - CloudWatch: Logging, metrics, and alarms. Monitor performance and errors
 - Secrets manager / Parameter store: Securely store credentials, tokens, config
 - CodePipeline + CodeBuild + CodedDeploy: CI/CD tools for automating deployment
+
+One thing to be aware is AWS regions, you can select any region you want, but as you create services, they will be region-specific. For example:
+
+- If you create an EC2 instance while in US East, this instance will "belong" to this region
+- Therefore, each region will have its own separate set of resources
 
 ## 3. Per category
 
@@ -100,3 +107,58 @@
 - Glue: ETL service for cleaning and transforming data at scale (e.g., convert CSVs in S3 to Parquet for Athena)
 - Athena: Query S3 with SQL (e.g., analytics dashboard over log files)
 - Kinesis: Real-time data streams (e.g., live analytics from user actions)
+
+## 4. AWS Free tier
+
+### Always Free
+
+There are some services that are always free with monthly limits
+
+- Lambda
+- DynamoDB
+- SQS
+- CloudFront
+
+### 12-Month Free
+
+- EC2
+- S3 Bucket (something like $1 store 50gb)
+- RDS
+- Amplify
+
+## 5. How to use AWS
+
+### 5.1 AWS Console
+
+Web-based UI
+
+- Use: manual setup, inspection, quick config, debugging
+- Best for: beginners, visual exploration, chekcing logs, setting up minor things
+- Not suitable for automation or repeatability
+
+### 5.2 AWS CLI
+
+Command-line tool (`aws <service> <command>`)
+
+- Use: scripting, automation, deployments, quick tasks
+- Best for: terminal-based workflows, CI/CD scripts, bulk operations
+- E.g.,: `aws s3 cp file.txt s3://my-bucket/`
+
+### 5.3 AWS SDKs (Software Development Kit)
+
+Programmatic access via code (e.g., Node.js, Python, Go)
+
+- Use: access AWS services from apps (e.g., upload to S3, query DynamoDB)
+- Best for: dynamic or user-triggered operations in your codebase
+- E.g.,: `s3Client.putObject({ Bucket, Key, Body })` in TS
+
+### 5.4 AWS CDKs (Cloud Development Kit)
+
+Infrastructure as Code using programming languages (TS, Python, YAML, etc)
+
+- Use: define and deploy AWS infrastructure using code
+- Best for: teams, projects needing repeatable, versioned, maintainable infra
+
+```ts
+new s3.Bucket(this, "MyBucket", { versioned: True });
+```
