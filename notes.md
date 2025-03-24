@@ -110,6 +110,16 @@ One thing to be aware is AWS regions, you can select any region you want, but as
 
 ## 4. AWS Free tier
 
+### Tip
+
+In order to have a budget setup:
+
+- On the console, search "budget"
+- Click on "Billing and cost management"
+- Select "Use a template"
+- Select "Zero spend budget" or "Monthly cost budget"
+- Add the email which should receive the budget alert
+
 ### Always Free
 
 There are some services that are always free with monthly limits
