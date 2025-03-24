@@ -222,7 +222,7 @@ npm install @aws-cdk/aws-s3 @aws-cdk/aws-lambda @aws-cdk/aws-apigateway \
             @aws-cdk/aws-dynamodb @aws-cdk/aws-iam
 ```
 
-2. Edit `lib/my-app-stack.ts`
+2. Create `lib/my-app-stack.ts`
 
 ```ts
 import * as cdk from "aws-cdk-lib";
@@ -243,7 +243,47 @@ export class MyAppStack extends cdk.Stack {
     });
 
     // DynamoDB table
-    const table = new dynamodb.Table();
+    const table = new dynamodb.Table(this, "UsersTable", {
+      partitionKey: { name: "userId", type: dynamodb.AttributeType.STRING },
+      billingMode: dynamo.BillingMode.PAY_PER_REQUEST,
+    });
+
+    // Lambda function
+    const apiFn = new lambda.Function(this, "ApiHandler", {
+      runtime: lambda.Runtime.NODE_JS_X,
+      handler: "index.handler",
+      code: lambda.Code.fromAsset("lambda"), // folder with function code
+      environment: {
+        TABLE_NAME: table.tableName,
+      },
+    });
+
+    // allow lambda to read/write DynamoDB
+    table.grantReadWriteData(apiFn);
+
+    new apigateway.LambdaRestApi(this, "ApiEndpoint", {
+      handler: apiFn,
+      proxy: true,
+    });
   }
 }
+```
+
+3. Create Lambda function
+
+```js
+//lambda/index.ts
+exports.handler = async (event: any) => {
+  return {
+    statusCode: 200,
+    body: JSON.stringify({ message: "Hello from lambda" }),
+  };
+};
+```
+
+4. Deploy
+
+```bash
+cdk bootstrap
+cdk deploy
 ```
